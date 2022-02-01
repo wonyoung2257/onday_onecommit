@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- Bootstrap CSS -->
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+      integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+      crossorigin="anonymous"
+    />
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+      integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+      integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+      crossorigin="anonymous"
+    ></script>
+    <!-- 깃허브 캘린더 -->
+
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/github-calendar@latest/dist/github-calendar-responsive.css"
+    />
+
+    <title>1일 1커밋!</title>
+    <style>
+      .wrap {
+        width: 900px;
+        margin: 10px auto;
+      }
+      .comment {
+        color: blue;
+        font-weight: bold;
+      }
+
+      #post-box {
+        width: 500px;
+        margin: 20px auto;
+        padding: 50px;
+        border: black solid;
+        border-radius: 5px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="wrap">
+      <div class="jumbotron">
+        <h1 class="display-4 text-center">
+          <span> <img src="git1day.svg" /> </span>
+          1커밋!
+        </h1>
+        <p class="lead text-center">
+          여러분들의 github contributions을 올려보세요!
+        </p>
+        <hr class="my-4" />
+
+        <p class="lead">
+          <a id="post-btn" class="btn btn-primary btn-lg" href="#" role="button"
+            >나의 깃허브 등록하기</a
+          >
+        </p>
+      </div>
+      <div id="post-box" class="form-post" style="display: none">
+        <div>
+          <div class="form-group">
+            <label for="post-url">github 링크 또는 닉네임 입력</label>
+            <input id="post-url" class="form-control" placeholder="" />
+          </div>
+          <div class="form-group">
+            <label for="post-comment">간단 코멘트</label>
+            <textarea
+              id="post-comment"
+              class="form-control"
+              rows="2"
+            ></textarea>
+          </div>
+          <button id="git-load-btn" type="button" class="btn btn-primary">
+            기사저장
+          </button>
+        </div>
+      </div>
+      <div class="grahp-gruop">
+        <div id="user-git-card">
+          <div style="text-align: center">
+            <strong>'wonyoung'님의 GitHub 잔디밭입니다.</strong>
+          </div>
+          <div class="calendar1">Loading data ...</div>
+          <p class="comment">구경오세요</p>
+        </div>
+        <div>
+          <!-- Prepare a container for your calendar. -->
+          <div style="text-align: center">
+            <strong>나의 GitHub Contribution 그래프</strong>
+          </div>
+          <div class="calendar2">
+            <!-- Loading stuff -->
+            Loading data ...
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="https://unpkg.com/github-calendar@latest/dist/github-calendar.min.js"></script>
+    <script src="../dist/github-calendar.min.js"></script>
+    <script src="js/main.js"></script>
+    <script src="index.js"></script>
+  </body>
+</html>
