@@ -25,7 +25,7 @@ def showCard():
 def postCard():
   nickName = request.form.get('nickName')
   comment = request.form.get('comment')
-  link= request.form.get('lick')
+  link= request.form.get('link')
   if db.users.find_one({'nickName': nickName}):
     return jsonify({'result':'success', 'msg': 'exists'})
   else:
@@ -33,13 +33,17 @@ def postCard():
     'nickName' : nickName,
     'comment' : comment,
     'link' : link
-    }  
-    db.users.insert_one(doc)
+    }
+
+    db.users.insert_one(doc)    
     return jsonify({'result':'success'})
 
-  
-  
-  
+@app.route('/delete', methods=['POST'])
+def deleteCard():
+  nickName = request.form.get('nickName')
+  db.users.delete_one({'nickName': nickName})
+  return jsonify({'result': 'success'})
+
 
 if __name__ == '__main__':  
   app.run('0.0.0.0',port=5000,debug=True)

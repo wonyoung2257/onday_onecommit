@@ -1,5 +1,4 @@
 $("#document").ready(() => {
-  // $(".grahp-gruop").hide();
   showGitCard();
 });
 
@@ -22,6 +21,7 @@ $("#git-load-btn").click(() => {
     nickName = link;
     link = "https://github.com/" + link;
   }
+
   $.ajax({
     url: "/card",
     type: "POST",
@@ -35,7 +35,20 @@ $("#git-load-btn").click(() => {
         if (response["msg"] === "exists") {
           alert("이미 등록된 깃허브 입니다.");
         } else {
-          location.reload();
+          createCard(nickName, comment, link).then((result) => {
+            if (!result) {
+              $.ajax({
+                url: "/delete",
+                type: "POST",
+                data: {
+                  nickName,
+                },
+              });
+            } else {
+              const post = $("#post-box");
+              post.hide();
+            }
+          });
         }
       }
     },
@@ -43,35 +56,39 @@ $("#git-load-btn").click(() => {
   // createCard(nickName, comment, link);
 });
 
-const createCard = (nickName, comment, link) => {
-  try {
-    let template = `
-    <div id="user-git-card">
+const createCard = async (nickName, comment, link) => {
+  let template = `
+    <div class="user-git-card">
       <div style="text-align: center">
         <strong>'${nickName}' 님의 GitHub 잔디밭입니다.</strong>
       </div>
       <div class="${nickName}">false</div>
-      <p class="comment">${comment}</p>
     </div>`;
 
-    $(".grahp-gruop").append(template);
-
-    GitHubCalendar(`.${nickName}`, `${nickName}`, {
+  $(".grahp-gruop").append(template);
+  const $userCardTag = $(`.${nickName}`);
+  try {
+    const response = await GitHubCalendar(`.${nickName}`, `${nickName}`, {
       responsive: true,
       tooltips: true,
-      global_stats: false,
+      // global_stats: false,
     }).then(function () {
-      const $userCardTag = $(`.${nickName}`);
       if ($userCardTag.text() === "false") {
         //추가한 카드 삭제
         //다시 입력창 표시
-        $userCardTag.parents("div#user-git-card").remove(); // $userCardTag.parents("div").remove();
+        $userCardTag.parents("div.user-git-card").remove(); // $userCardTag.parents("div").remove();
         alert("유효하지 않는 깃허브 링크입니다.");
+        return false;
       }
-      console.log("inner");
+      $(`.${nickName} div.float-left`).text(comment);
+      return true;
     });
+    return response;
   } catch (err) {
     console.log(err);
+    $userCardTag.parents("div.user-git-card").remove();
+    alert("등록에러입니다");
+    return false;
   }
 };
 
