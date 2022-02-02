@@ -3,10 +3,10 @@ from flask import Flask, render_template, jsonify, request
 import requests
 from bs4 import BeautifulSoup
 from pymongo import MongoClient
-
+import config
 app = Flask(__name__)
 
-client = MongoClient('localhost', 27017)
+client = MongoClient(config.db_link, 27017)
 db= client.wonDB
 
 @app.route('/')
